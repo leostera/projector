@@ -1,0 +1,9 @@
+node_modules
+build
+dist
+TODO
+
+*.sw*
+.build.sh
+.travis_build
+.bin
