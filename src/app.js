@@ -31,6 +31,16 @@ let done:  Function = log.bind("DONE")
  * Glue!
  *******************************************************************************/
 
+const samePath = (a: Location, b: Location): boolean =>
+  a.pathname === b.pathname
+
 let state = from(history)
+  .skipRepeatsWith(samePath)
   .timestamp()
+  .tap(log)
+  .map( (o) => o.value.pathname )
   .observe(log)
+
+setTimeout(() => { __history.push("/no-way") },500)
+setTimeout(() => { __history.push("/no-way") },750)
+setTimeout(() => { __history.push("/jo-say") },900)
