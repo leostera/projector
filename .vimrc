@@ -1,6 +1,10 @@
-function! Build()
+function! BuildJS()
   call VimuxRunCommand("time make build")
 endfunction
 
-autocmd! BufWritePost *.js   :call Build()
-autocmd! BufWritePost *.sass :call Build()
+function! BuildCSS()
+  call VimuxRunCommand("time make styles")
+endfunction
+
+autocmd! BufWritePost *.js   :call BuildJS()
+autocmd! BufWritePost *.sass :call BuildCSS()
