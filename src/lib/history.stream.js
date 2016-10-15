@@ -24,7 +24,10 @@ export default function (history: History): Stream<Location> {
     run: (sink: Sink<Location>, scheduler: Scheduler) =>  {
       let push = (l) => sink.event(scheduler.now, l)
       let unlisten = history.listen(push)
-      sink.event(scheduler.now, history.getCurrentLocation())
+      // Push in the current location
+      setTimeout(() => {
+        sink.event(scheduler.asap(), history.getCurrentLocation())
+      }, 0)
       return {
         dispose: () => {
           unlisten()
