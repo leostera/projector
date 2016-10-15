@@ -36,17 +36,30 @@ type State = {
   location: Location;
 }
 
-const samePath = (a: Location, b: Location): boolean =>
+const sameLocation = (a: Location, b: Location): boolean => (
   a.pathname === b.pathname
+    && a.hash   === b.hash
+    && a.action === b.action
+    && a.search === b.search
+)
 
-const initialState = (state, location: Location): State => ({
-  ...state,
+const initialState: State = {
   _meta,
+  location: __history.getCurrentLocation()
+}
+
+const build = (state, location: Location): State => ({
+  ...state,
   location
 })
 
 let glue = from(history)
-  .skipRepeatsWith(samePath)
-  .scan(initialState, {})
-  .tap(log)
-  .observe(log)
+  .skipRepeatsWith(sameLocation)
+  .scan(build, initialState)
+  .observe( (s) => log(s.location.pathname, s.location.search) )
+
+setTimeout( () => { __history.push('/what') }, 100)
+setTimeout( () => { __history.push({
+  pathname: '/what',
+  search: '?what=true'
+}) }, 400)
