@@ -56,10 +56,4 @@ const build = (state, location: Location): State => ({
 let glue = from(history)
   .skipRepeatsWith(sameLocation)
   .scan(build, initialState)
-  .observe( (s) => log(s.location.pathname, s.location.search) )
-
-setTimeout( () => { __history.push('/what') }, 100)
-setTimeout( () => { __history.push({
-  pathname: '/what',
-  search: '?what=true'
-}) }, 400)
+  .observe(render)

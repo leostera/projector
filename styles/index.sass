@@ -1,9 +1,8 @@
 @import 'utils'
 
-$text-font:  'Raleway'
-$title-font: 'Italiana'
+$text-font:  'Source Sans Pro'
 
-@import "https://fonts.googleapis.com/css?family=Italiana:400|Raleway:300,500"
+@import "https://fonts.googleapis.com/css?family=Source Sans Pro:300,500"
 
 $white: #FEFEFE
 $green: #3DB74A
@@ -14,5 +13,12 @@ $gray-light: #DCDCDC
 *
   box-sizing: border-box
   font-size: 1em
-  font-family: 'Helvetica Neue', $text-font, 'Helvetica', sans-serif
+  font-family: $text-font, 'Helvetica Neue', sans-serif
   font-weight: 100
+
+.repository
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: center
+  align-items: baseline
