@@ -1,5 +1,5 @@
 function! Build()
-  call VimuxRunCommand("make build")
+  call VimuxRunCommand("time make build")
 endfunction
 
 autocmd! BufWritePost *.js   :call Build()
