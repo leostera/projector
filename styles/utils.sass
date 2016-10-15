@@ -1,0 +1,31 @@
+$grid_unit: 6.8966vw // 100% / 14 columns + gutters
+=grid($columns, $rows: 14, $type: soft)
+  width:  $columns*$grid_unit
+  @if $type == hard
+    height: $rows*$grid_unit
+  @else if $type == soft
+    max-height: $rows*$grid_unit
+  display: inline-block
+
+=offset($columns: none, $rows: none)
+  @if $columns != none
+    margin-left: $columns*$grid_unit
+  @if $rows != none
+    margin-top: $rows*$grid_unit
+
+=center($axis: both)
+  position: absolute
+  @if $axis == both
+    +center(vertical)
+    +center(horizontal)
+    transform: translateY(-50%) translateX(-50%)
+  @else if $axis == vertical
+    top: 50%
+    transform: translateY(-50%)
+  @else if $axis == horizontal
+    left: 50%
+    transform: translateX(-50%)
+
+=reset()
+  margin: 0
+  padding: 0
