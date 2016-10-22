@@ -1,7 +1,4 @@
-export type Meta = {
-  Version:  string;
-  Revision: string;
-}
+import type { Meta } from 'projector/Types'
 
 const _meta: Meta = {
   Env: "${NODE_ENV}",

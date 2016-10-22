@@ -1,6 +1,8 @@
 //@flow
 import { log, error } from 'projector/utils'
 
+import type { State } from 'projector/Types'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -38,7 +40,7 @@ const Repo = () => (
   </section>
 )
 
-export default (state) => {
+export default (state: State): void => {
   try {
     ReactDOM.render((
       <section>

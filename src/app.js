@@ -2,15 +2,13 @@
 import 'babel-polyfill'
 import { log, error } from 'projector/utils'
 
-import type Meta from 'projector/metadata'
-import _meta from 'projector/metadata'
-
 import { from } from 'most'
 
 import createHistoryStream from 'projector/lib/history.stream'
+import type { History, Location } from 'history'
 import createHistory from 'history/lib/createBrowserHistory'
 
-// import render from 'projector/render'
+import * as Projector from 'projector/Projector'
 
 /*******************************************************************************
  * Private
@@ -23,11 +21,6 @@ let history = createHistoryStream(__history)
  * Glue!
  *******************************************************************************/
 
-type State = {
-  _meta: Meta;
-  location: Location;
-}
-
 const sameLocation = (a: Location, b: Location): boolean => (
   a.pathname === b.pathname
     && a.hash   === b.hash
@@ -35,17 +28,13 @@ const sameLocation = (a: Location, b: Location): boolean => (
     && a.search === b.search
 )
 
-const initialState: State = {
-  _meta,
+const initialState = {
   location: __history.getCurrentLocation()
 }
 
-const build = (state, location: Location): State => ({
-  ...state,
-  location
-})
-
 let glue = from(history)
-  .skipRepeatsWith(sameLocation)
-  .scan(build, initialState)
-// .observe(render)
+  .scan(Projector.init, Projector.init(initialState))
+  .observe(log)
+
+setTimeout( () => { __history.push("/what"+Math.random()) }, 100)
+setTimeout( () => { __history.push("/what"+Math.random()) }, 1000)
