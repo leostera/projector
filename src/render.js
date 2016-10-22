@@ -41,6 +41,7 @@ const Repo = () => (
 )
 
 export default (state: State): void => {
+  log("Renderer:", state)
   try {
     ReactDOM.render((
       <section>
