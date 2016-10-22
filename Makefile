@@ -51,18 +51,19 @@ styles:
 		--output-style compressed \
 		./styles/index.sass > $(BUILD_DIR)/index.css
 
-source:
+constants:
+	VERSION="$(VERSION)" \
+	REVISION="$(REVISION)" \
+	STAMP="$(STAMP)" \
+	NODE_ENV="$(NODE_ENV)" \
+	MIXPANEL_TOKEN="$(MIXPANEL_TOKEN)" \
+		envsubst < src/_metadata.js > src/metadata.js
+
+source: constants
 	$(BIN_DIR)/browserify \
 		src/app.js \
 		--debug \
 		-t babelify \
-		-t [ envify \
-			--VERSION  "$(VERSION)" \
-			--REVISION "$(REVISION)" \
-			--STAMP    "$(STAMP)" \
-			--NODE_ENV "$(NODE_ENV)" \
-			--MIXPANEL_TOKEN "$(MIXPANEL_TOKEN)" \
-		] \
 		| $(BIN_DIR)/exorcist $(BUILD_DIR)/bundle.js.map \
 		> $(BUILD_DIR)/_bundle.js
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
