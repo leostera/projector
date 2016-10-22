@@ -7,7 +7,9 @@ const log = (...args: any[]): void => {
     && console.log(now(), ...args)
 }
 
-const error: Function = log.bind("ERROR")
+log.ns = (namespace) => log.bind({}, namespace)
+
+const error: Function = log.ns("ERROR:")
 
 const pluck = (key) => {
   const keys = key.split(".")
