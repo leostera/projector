@@ -23,7 +23,7 @@ const query = (ql) => {
   // Rather hackish way of lazily generating the Promise
   // since .just will only emit when someone starts observing
   return just(0)
-    .concatMap( () => fromPromise(fetch(GITHUB_API, request_data)) )
+    .concatMap( ()  => fromPromise(fetch(GITHUB_API, request_data)) )
     .concatMap( (r) => fromPromise(r.json()) )
     .map(pluck("data"))
     .tap(log.ns("Github Response:"))
