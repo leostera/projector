@@ -30,7 +30,6 @@
     "baobab": "^2.3.3",
     "base-64": "^0.1.0",
     "browserify": "^13.0.1",
-    "envify": "^3.4.1",
     "eslint": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
     "exorcist": "^0.4.0",
@@ -51,8 +50,7 @@
   "browserify": {
     "transform": [
       "babelify",
-      "reactify",
-      "envify"
+      "reactify"
     ]
   },
   "jest": {

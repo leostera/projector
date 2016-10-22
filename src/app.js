@@ -2,23 +2,15 @@
 import 'babel-polyfill'
 import { log, error } from 'projector/utils'
 
-export type Meta = {
-  Version:  string;
-  Revision: string;
-}
-
-const _meta: Meta = {
-  Env: `${process.env.NODE_ENV}`,
-  Version: `${process.env.VERSION}`,
-  Revision: `${process.env.REVISION}`
-}
+import type Meta from 'projector/metadata'
+import _meta from 'projector/metadata'
 
 import { from } from 'most'
 
 import createHistoryStream from 'projector/lib/history.stream'
 import createHistory from 'history/lib/createBrowserHistory'
 
-import render from 'projector/render'
+// import render from 'projector/render'
 
 /*******************************************************************************
  * Private
@@ -56,4 +48,4 @@ const build = (state, location: Location): State => ({
 let glue = from(history)
   .skipRepeatsWith(sameLocation)
   .scan(build, initialState)
-  .observe(render)
+// .observe(render)
