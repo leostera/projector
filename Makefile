@@ -17,6 +17,8 @@ STAMP   =$(REVISION).$(shell date +%s)
 
 all: setup check lint test package
 
+ci: all
+
 setup:
 	$(SCRIPT_DIR)/symlink.sh
 
