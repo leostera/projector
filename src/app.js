@@ -9,6 +9,7 @@ import type { History, Location } from 'history'
 import createHistory from 'history/lib/createBrowserHistory'
 
 import * as Projector from 'projector/Projector'
+import render from 'projector/render'
 
 /*******************************************************************************
  * Private
@@ -34,4 +35,5 @@ const initialState = {
 
 let glue = from(history)
   .scan(Projector.init, Projector.init(initialState))
-  .observe(log)
+  .join()
+  .observe(render)
