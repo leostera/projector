@@ -69,7 +69,7 @@ source: constants
 	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
 
 package: clean build
-	cp -r index.html opensearch.xml $(BUILD_DIR) $(DIST_DIR)
+	cp -r index.html $(BUILD_DIR) $(DIST_DIR)
 	sed -i 's build/bundle build/$(STAMP) g' $(DIST_DIR)/index.html
 	sed -i 's build/index build/$(STAMP) g'  $(DIST_DIR)/index.html
 	mv $(DIST_DIR)/$(BUILD_DIR)/index.css $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css
