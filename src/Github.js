@@ -1,7 +1,8 @@
+import { log, pluck } from 'projector/utils'
+
 import { fromPromise } from 'most'
 import 'whatwg-fetch'
 
-import { log } from 'projector/utils'
 import _meta from 'projector/metadata'
 
 const GITHUB_TOKEN = _meta.Tokens.Github
@@ -20,6 +21,9 @@ const query = (ql) => {
     })
   }
   return fromPromise(fetch(GITHUB_API, request_data))
+    .concatMap( (r) => fromPromise(r.json()) )
+    .map(pluck("data"))
+    .tap(log.bind({},"Github Response:"))
 }
 
 export { query }

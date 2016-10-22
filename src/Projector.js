@@ -1,35 +1,23 @@
-import { log, error } from 'projector/utils'
+import { log, error, pluck } from 'projector/utils'
 
 import type { State, Meta } from 'projector/Types'
 import _meta from 'projector/metadata'
 
 import * as Github from 'projector/Github'
 
-const init = (state: State, location: Location): State => {
-  Github.query(`
+const project_count = () => {
+  return Github.query(`
     viewer {
-      login
-      repositories(first: 30) {
-        edges {
-          node {
-            description
-            owner {
-              id
-            }
-            issues(first: 3) {
-              totalCount
-              edges {
-                node {
-                  title
-                  body
-                }
-              }
-            }
-          }
-        }
+      contributedRepositories {
+        totalCount
       }
     }
-  `)
+  `).map(pluck("viewer.contributedRepositories.totalCount"))
+}
+
+const init = (state: State, location: Location): State => {
+  project_count()
+    .observe(log)
   return state
 }
 

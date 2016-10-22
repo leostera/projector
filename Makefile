@@ -57,6 +57,7 @@ constants:
 	STAMP="$(STAMP)" \
 	NODE_ENV="$(NODE_ENV)" \
 	MIXPANEL_TOKEN="$(MIXPANEL_TOKEN)" \
+	GITHUB_TOKEN="$(GITHUB_TOKEN)" \
 		envsubst < src/_metadata.js > src/metadata.js
 
 source: constants
