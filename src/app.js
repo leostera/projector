@@ -35,6 +35,3 @@ const initialState = {
 let glue = from(history)
   .scan(Projector.init, Projector.init(initialState))
   .observe(log)
-
-setTimeout( () => { __history.push("/what"+Math.random()) }, 100)
-setTimeout( () => { __history.push("/what"+Math.random()) }, 1000)

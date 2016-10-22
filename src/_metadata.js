@@ -6,7 +6,8 @@ const _meta: Meta = {
   Revision: "${REVISION}",
   Stamp: "${STAMP}",
   Tokens: {
-    Mixpanel: "${MIXPANEL_TOKEN}"
+    Mixpanel: "${MIXPANEL_TOKEN}",
+    Github: "8a62d4ae6a8a0e014f12796ff4af8dd0ba55cdff"
   }
 }
 
