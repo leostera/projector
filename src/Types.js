@@ -23,8 +23,9 @@ export type Color = string
 export type Description = string
 
 export type Label = {
+  id: Id;
   name: Name;
-  color: Color
+  color: Color;
 }
 
 export type Milestone = {
