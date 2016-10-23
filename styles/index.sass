@@ -4,10 +4,12 @@ $text-font:  'Source Sans Pro'
 @import "https://fonts.googleapis.com/css?family=Source Sans Pro:300,500"
 
 $white: #FEFEFE
+$white-dirt: #F9F9F9
 $green: #3DB74A
 $green-light: #52d360
 $gray: #9A9A9A
 $gray-light: #DCDCDC
+$black: #121212
 
 *
   box-sizing: border-box
@@ -15,6 +17,7 @@ $gray-light: #DCDCDC
 
 body
   font-size: 1em
+  color: $black
 
 .repository
   display: flex
@@ -25,21 +28,27 @@ body
 
 .header
   text-align: right
+  +offset(1)
   +grid(2)
 
 .milestone
-  +grid(4)
+  +grid(5)
   padding: 0 1em
   h3
     text-align: right
 
 .issue
-  border: 1px solid black
+  border: 1px solid $gray-light
   padding: 0.4em
   margin: 0.25em 0
-  border-radius: 4px
 
   &:hover
-    background-color: gray
-    cursor: pointer
-    color: white
+    background-color: $white-dirt
+
+.label
+  border-radius: 2px
+  padding: 0.1em 0.3em
+  color: $white
+  display: inline-block
+  margin: 0.2em
+  font-size: 0.9em
