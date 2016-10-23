@@ -9,12 +9,14 @@ import type {
   State
 } from 'projector/Types'
 
+import emojify from 'projector/lib/gemoji'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 const IssueComponent = (issue: Issue) => (
-  <section key={issue.id} id={issue.id} className={issue.state}>
-    <h4>{issue.title}</h4>
+  <section key={issue.id} id={issue.id} className="issue">
+    {issue.title}
   </section>
 )
 
@@ -29,8 +31,11 @@ const MilestoneComponent = (milestone: Milestone) => (
 
 const RepositoryComponent = (repo: Repository) => (
   <section key={repo.id} id={repo.name} className="repository">
-    <h2> {repo.name} </h2>
-    { repo.milestones.map(MilestoneComponent) }
+    <section className="header">
+      <h2>{repo.name}</h2>
+      <span>{emojify(repo.description)}</span>
+    </section>
+    { repo.milestones.filter( m => m.issues.length > 0 ).map(MilestoneComponent) }
   </section>
 )
 

@@ -65,7 +65,7 @@ const projects = (last) => Github.query(`
     n.milestones = n.milestones.edges
       .map( e => e.node )
       .map( m => {
-        m.issues = n.issues.filter( i => i.milestone && i.milestone.id === m.id )
+        m.issues = n.issues.filter( i => i.milestone && i.milestone.id === m.id && i.state === "OPEN" )
         return m
       })
     return n
