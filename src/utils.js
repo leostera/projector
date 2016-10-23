@@ -9,11 +9,11 @@ const now  = () => `${_now_time()}:${tick()}`
 const log = (...args: any[]): void => {
   // @todo: use ${NODE_ENV} here instead
   // let envsubst do the job
-  (_meta.Env !== "production")
+  ("${NODE_ENV}" !== "production")
     && console.log(now(), ...args)
 }
 
-log.ns = (namespace: string): void => log.bind({}, namespace)
+log.ns = (namespace: string): Function => log.bind({}, namespace)
 
 const error: Function = log.ns("ERROR:")
 const info:  Function = log.ns("INFO:")
