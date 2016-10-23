@@ -1,4 +1,5 @@
 //@flow
+
 import 'babel-polyfill'
 import { log, error } from 'projector/utils'
 
@@ -8,6 +9,7 @@ import createHistoryStream from 'projector/lib/history.stream'
 import type { History, Location } from 'history'
 import createHistory from 'history/lib/createBrowserHistory'
 
+import _meta from 'projector/metadata'
 import * as Projector from 'projector/Projector'
 import render from 'projector/render'
 
@@ -30,11 +32,12 @@ const sameLocation = (a: Location, b: Location): boolean => (
 )
 
 const initialState = {
+  _meta,
   location: __history.getCurrentLocation()
 }
 
 let glue = from(history)
   .skipRepeatsWith(sameLocation)
-  .scan(Projector.init, Projector.init(initialState))
+  .map(Projector.init)
   .join()
   .observe(render)

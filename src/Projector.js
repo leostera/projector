@@ -1,3 +1,5 @@
+//@flow
+
 import Baobab from 'baobab'
 
 import { log, error, pluck } from 'projector/utils'

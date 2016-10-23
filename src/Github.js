@@ -1,14 +1,18 @@
+//@flow
+
 import { log, pluck } from 'projector/utils'
 
+import type { Stream } from 'most'
 import { just, fromPromise } from 'most'
-import 'whatwg-fetch'
+import * as fetch from 'whatwg-fetch'
 
+import type { Query } from 'projector/Types'
 import _meta from 'projector/metadata'
 
 const GITHUB_TOKEN = _meta.Tokens.Github
 const GITHUB_API = 'https://api.github.com/graphql'
 
-const query = (ql) => {
+const query = (ql: Query): Stream => {
   const _wrapped_query = `query { ${ql.split('\n').join('')} }`
   const request_data = {
     method: 'POST',
