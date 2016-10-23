@@ -60,9 +60,15 @@ const projects = (last) => Github.query(`
   .map( res => res.map( r => r.node ) )
   .map( node => node.map( n => {
     n.issues = n.issues.edges.map( e => e.node )
-    n.milestones = n.milestones.edges.map( e => e.node )
+    n.milestones = n.milestones.edges
+      .map( e => e.node )
+      .map( m => {
+        m.issues = n.issues.filter( i => i.milestone && i.milestone.id === m.id )
+        return m
+      })
     return n
   }) )
+  .map( res => (res.filter( p => p.milestones.length > 0 )) )
 
 const init = (state: State, location: Location): State => {
   return projects(30)
