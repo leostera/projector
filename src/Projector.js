@@ -74,7 +74,7 @@ const projects = (last) => Github.query(`
 
 const init = (state: State, location: Location): State => {
   return projects(30)
-    .map( data => new Baobab(data) )
+    .map( data => ({...state, repositories: new Baobab(data) }) )
     .tap(log.ns("Projector:"))
 }
 

@@ -4,7 +4,8 @@ import { log, pluck } from 'projector/utils'
 
 import type { Stream } from 'most'
 import { just, fromPromise } from 'most'
-import * as fetch from 'whatwg-fetch'
+
+import 'whatwg-fetch'
 
 import type { Query } from 'projector/Types'
 import _meta from 'projector/metadata'

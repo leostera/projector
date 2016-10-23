@@ -18,6 +18,7 @@ import render from 'projector/render'
  *******************************************************************************/
 
 let __history: History = createHistory()
+let location: Location = __history.getCurrentLocation()
 let history = createHistoryStream(__history)
 
 /*******************************************************************************
@@ -30,14 +31,12 @@ const sameLocation = (a: Location, b: Location): boolean => (
     && a.action === b.action
     && a.search === b.search
 )
-
 const initialState = {
   _meta,
-  location: __history.getCurrentLocation()
+  location
 }
 
 let glue = from(history)
-  .skipRepeatsWith(sameLocation)
-  .map(Projector.init)
+  .scan(Projector.init, Projector.init(initialState, location))
   .join()
   .observe(render)

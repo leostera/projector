@@ -4,7 +4,7 @@
  * Imports
  *******************************************************************************/
 
-import { log } from 'projector/utils'
+import { log, error } from 'projector/utils'
 
 import type { History, Location } from 'history'
 
