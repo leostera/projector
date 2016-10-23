@@ -2,9 +2,11 @@ import _meta from 'projector/metadata'
 
 const _now_time = () => (new Date()).toTimeString().split(' ')[0]
 const tick = () => performance.now()|0
-const now = () => `${_now_time()}:${tick()}`
+const now  = () => `${_now_time()}:${tick()}`
 
 const log = (...args: any[]): void => {
+  // @todo: use ${NODE_ENV} here instead
+  // let envsubst do the job
   (_meta.Env !== "production")
     && console.log(now(), ...args)
 }
