@@ -1,12 +1,42 @@
 language: node_js
 
 node_js:
-  - "5.3"
-  - "5.4"
-  - "5.5"
+  - '5'
+
+env:
+  global:
+    - NODE_ENV=CI
+    - AWS_CLOUDFRONT_DISTRIBUTION=
+    - MIXPANEL_TOKEN=
+
+cache:
+  directories:
+    - node_modules
 
 git:
-  depth: 1
+  depth: 100
 
 script:
-  - make ci
+  - make setup
+  - make check
+  - make lint
+  - make test
+  - NODE_ENV=production make package
+
+before_deploy:
+  - ./scripts/install-awscli.sh
+
+deploy:
+  provider: s3
+  bucket: projector.ostera.io
+  on:
+    node: '5'
+    repo: ostera/projector
+  skip_cleanup: true
+  local-dir: dist
+  acl: public_read
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  access_key_id: $AWS_ACCESS_KEY_ID
+
+after_deploy:
+  - ./scripts/invalidate-cdn-cache.sh
