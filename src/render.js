@@ -3,10 +3,11 @@
 import { log, error } from 'projector/utils'
 
 import type {
-  Issue,
-  Milestone,
-  Repository,
-  State
+    Issue,
+    Label,
+    Milestone,
+    Repository,
+    State,
 } from 'projector/Types'
 
 import emojify from 'projector/lib/gemoji'
@@ -14,9 +15,21 @@ import emojify from 'projector/lib/gemoji'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const LabelStyles = (label: Label) => ({
+  backgroundColor: `#${label.color}`
+})
+const LabelComponent = (label: Label) => (
+  <section key={label.id}
+    className="label"
+    style={LabelStyles(label)}  >
+    {label.name}
+  </section>
+)
+
 const IssueComponent = (issue: Issue) => (
   <section key={issue.id} id={issue.id} className="issue">
     {issue.title}
+    { issue.labels.map(LabelComponent) }
   </section>
 )
 
@@ -35,7 +48,7 @@ const RepositoryComponent = (repo: Repository) => (
       <h2>{repo.name}</h2>
       <span>{emojify(repo.description)}</span>
     </section>
-    { repo.milestones.filter( m => m.issues.length > 0 ).map(MilestoneComponent) }
+    { repo.milestones.map(MilestoneComponent) }
   </section>
 )
 
