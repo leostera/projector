@@ -30,4 +30,5 @@ export {
   log,
   error,
   pluck,
+  info,
 }
