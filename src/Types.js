@@ -21,12 +21,13 @@ export type Label = {
 
 export type Milestone = {
   id: Id;
-  name: Name;
+  title: Name;
+  description: Description;
 }
 
 export type Issue = {
   id: Id;
-  name: Name;
+  title: Name;
   description: Description;
   milestone:? Milestone;
   labels:? [Label];
