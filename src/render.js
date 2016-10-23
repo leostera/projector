@@ -7,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Issue = (issue) => (
-  <section key={issue.key} id={issue.id} className="issue">
+  <section key={issue.key} id={issue.id} className={issue.state}>
     <h4>{issue.title}</h4>
   </section>
 )
@@ -24,7 +24,7 @@ const Milestone = (milestone: t.Milestone) => (
 const Repo = (repo: t.Repository) => (
   <section key={repo.id} id={repo.name} className="repository">
     <h2> {repo.name} </h2>
-    /*{ repo.milestones.map(Milestone) }*/
+    { repo.milestones.map(Milestone) }
   </section>
 )
 
