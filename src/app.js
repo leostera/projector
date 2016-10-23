@@ -34,6 +34,7 @@ const initialState = {
 }
 
 let glue = from(history)
+  .skipRepeatsWith(sameLocation)
   .scan(Projector.init, Projector.init(initialState))
   .join()
   .observe(render)
