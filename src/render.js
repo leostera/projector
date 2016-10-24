@@ -52,12 +52,28 @@ const RepositoryComponent = (repo: Repository) => (
   </section>
 )
 
+const Nav = () => (
+  <header>
+    <nav>
+      Projector
+    </nav>
+  </header>
+)
+
+const Footer = () => (
+  <footer>
+    Made with {emojify(":heart:")} by <a href="https://github.com/ostera">@ostera</a>
+  </footer>
+)
+
 export default ({repositories}: State): void => {
   const repos = repositories && repositories.get().map( RepositoryComponent )
   try {
     ReactDOM.render((
       <section>
+         <Nav />
          { repos }
+         <Footer />
       </section>
     ), document.getElementById('projector'))
   } catch (e) {

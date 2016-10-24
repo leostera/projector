@@ -9,6 +9,7 @@ $green: #3DB74A
 $green-light: #52d360
 $gray: #9A9A9A
 $gray-light: #DCDCDC
+$black-mud: #1e1e1e
 $black: #121212
 
 *
@@ -16,10 +17,31 @@ $black: #121212
   font-family: $text-font, 'Helvetica Neue', sans-serif
 
 body
+  +reset
   font-size: 1em
   color: $black
 
+header
+  +grid(14)
+  height: 44px //sometimes grid is not enough
+  background-color: $black-mud
+  color: $white
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: center
+  align-items: center
+
+  nav
+    +grid(12)
+
+footer
+  +grid(14,1,hard)
+  text-align: center
+  padding: 1.5em
+
 .repository
+  +grid(14)
   display: flex
   flex-direction: row
   flex-wrap: wrap
