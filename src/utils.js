@@ -30,11 +30,6 @@ const pluck = (key: string): Function => {
   }
 }
 
-const nullish = (i) => !(i == null || i == undefined || i == "")
-Array.prototype.compact = function () {
-  return this.filter(nullish) 
-}
-
 export {
   log,
   error,

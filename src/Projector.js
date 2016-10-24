@@ -31,16 +31,8 @@ const projects = (last) => Github.query(`
             edges {
               node {
                 id
-                body
                 title
                 number
-                repository {
-                  url
-                }
-                milestone {
-                  id
-                }
-                state
                 labels(first: 30) {
                   edges {
                     node {
@@ -50,6 +42,13 @@ const projects = (last) => Github.query(`
                     }
                   }
                 }
+                repository {
+                  url
+                }
+                milestone {
+                  id
+                }
+                state
               }
             }
           }
@@ -75,24 +74,18 @@ const projects = (last) => Github.query(`
   }
 `).map(pluck("viewer.contributedRepositories.edges"))
   .map( res => res.map( r => r.node ) )
-  .map( nodes => nodes.map( n => {
-    n.issues = n.issues.edges
-      .map( e => e.node )
-      .compact()
-      .map( e => {
-        e.labels = e.labels.edges.map( e => e.node )
-        return e
-      })
-
+  .map( node => node.map( n => {
+    n.issues = n.issues.edges.map( e => {
+      e.node.labels = e.node.labels.edges.map( e => e.node )
+      return e.node
+    })
     n.milestones = n.milestones.edges
       .map( e => e.node )
-      .compact()
       .map( m => {
         m.issues = n.issues.filter( i => i.milestone && i.milestone.id === m.id && i.state === "OPEN" )
         return m
       })
       .filter( m => m.issues.length > 0 )
-
     return n
   }) )
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
