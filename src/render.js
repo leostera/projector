@@ -55,10 +55,15 @@ const RepositoryComponent = (repo: Repository) => (
   </section>
 )
 
-const Nav = () => (
+const Nav = ({_meta}) => (
   <header>
     <nav>
       <a href="" className="brand">{emojify(":film_projector:")}</a>
+      <span className="version">
+        <a href={`https://github.com/ostera/projector/tree/${_meta.Revision}`}>
+          v{_meta.Version}
+        </a>
+      </span>
     </nav>
   </header>
 )
@@ -69,9 +74,9 @@ const Footer = () => (
   </footer>
 )
 
-const Content = ({repos}) => (
+const Content = ({_meta, repos}) => (
   <section className="content">
-    <Nav />
+    <Nav _meta={_meta} />
       { repos }
     <Footer />
   </section>
@@ -83,13 +88,12 @@ const Loading = () => (
   </section>
 )
 
-export default ({loading, repositories}: State): void => {
-  log(loading)
+export default ({_meta, loading, repositories}: State): void => {
   const repos = repositories && repositories.get().map( RepositoryComponent )
   try {
     ReactDOM.render((
       <section>
-        { !loading && <Content repos={repos} /> || <Loading /> }
+        { !loading && <Content _meta={_meta} repos={repos} /> || <Loading /> }
       </section>
     ), document.getElementById('projector'))
   } catch (e) {
