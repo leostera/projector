@@ -40,6 +40,7 @@ export type IssueState = "OPEN" | "CLOSED";
 export type Issue = {
   id: Id;
   title: Name;
+  number: number;
   description: Description;
   milestone?: Milestone;
   labels?: Label[];

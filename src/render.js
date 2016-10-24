@@ -26,10 +26,13 @@ const LabelComponent = (label: Label) => (
   </section>
 )
 
-const IssueComponent = (issue: Issue) => (
-  <section key={issue.id} id={issue.id} className="issue">
-    {issue.title}
-    { issue.labels.map(LabelComponent) }
+const IssueComponent = ({ title, id, labels, number }: Issue) => (
+  <section key={id} id={id} className="issue">
+    <a href="">
+      <span className="issue-number">#{ number }</span>
+      { title }
+    </a>
+    { labels.map(LabelComponent) }
   </section>
 )
 
