@@ -29,3 +29,18 @@ $grid_unit: 100vw / 14 // 6.8966vw // 100% / 14 columns + gutters
 =reset()
   margin: 0
   padding: 0
+
+=emoji($color, $hover: $color)
+  cursor: default
+  color: transparent
+  text-shadow: 0 0 0 $color
+  transition: text-shadow 0.2s linear 0s
+  &:hover
+    text-shadow: 0 0 0 $hover
+
+=flex($direction, $wrap, $justify-content, $align-items)
+  display: flex !important
+  flex-direction: $direction
+  flex-wrap: $wrap
+  justify-content: $justify-content
+  align-items: $align-items

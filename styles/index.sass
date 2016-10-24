@@ -22,25 +22,13 @@ body
 
 header
   +grid(14)
+  +flex(row, wrap, center, center)
   height: 44px //sometimes grid is not enough
   background-color: $black-mud
   color: $white
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-  justify-content: center
-  align-items: center
 
   nav
     +grid(13)
-
-=emoji($color, $hover: $color)
-  cursor: default
-  color: transparent
-  text-shadow: 0 0 0 $color
-  transition: text-shadow 0.2s linear 0s
-  &:hover
-    text-shadow: 0 0 0 $hover
 
 .brand
   font-size: 1.4em
@@ -65,11 +53,7 @@ footer
 
 .repository
   +grid(14)
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-  justify-content: flex-start
-  align-items: baseline
+  +flex(row, wrap, flex-start, baseline)
 
 .header
   text-align: right
