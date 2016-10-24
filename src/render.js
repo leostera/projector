@@ -48,7 +48,7 @@ const MilestoneComponent = (milestone: Milestone) => (
 const RepositoryComponent = (repo: Repository) => (
   <section key={repo.id} id={repo.name} className="repository">
     <section className="header">
-      <h2>{repo.name}</h2>
+      <h2><a href={repo.url}>{repo.name}</a></h2>
       <span>{emojify(repo.description)}</span>
     </section>
     { repo.milestones.map(MilestoneComponent) }

@@ -27,6 +27,7 @@ const projects = (last) => Github.query(`
           id
           name
           description
+          url
           issues(last: 30) {
             edges {
               node {
@@ -62,6 +63,9 @@ const projects = (last) => Github.query(`
                 dueOn
                 closedIssueCount
                 openIssueCount
+                repository {
+                  url
+                }
                 createdBy {
                   name
                 }
