@@ -26,9 +26,9 @@ const LabelComponent = (label: Label) => (
   </section>
 )
 
-const IssueComponent = ({ title, id, labels, number }: Issue) => (
+const IssueComponent = ({ repository, title, id, labels, number }: Issue) => (
   <section key={id} id={id} className="issue">
-    <a href="">
+    <a href={`${repository.url}/issues/${number}`}>
       <span className="issue-number">#{ number }</span>
       { title }
     </a>
