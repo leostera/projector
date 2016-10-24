@@ -30,13 +30,11 @@ $grid_unit: 100vw / 14 // 6.8966vw // 100% / 14 columns + gutters
   margin: 0
   padding: 0
 
-=emoji($color, $hover: $color)
+=emoji($color)
   cursor: default
   color: transparent
   text-shadow: 0 0 0 $color
   transition: text-shadow 0.2s linear 0s
-  &:hover
-    text-shadow: 0 0 0 $hover
 
 =flex($direction, $wrap, $justify-content, $align-items)
   display: flex !important

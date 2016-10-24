@@ -100,9 +100,8 @@ const init = (state: State, location: Location): State => {
     }))
 
   return just({ ...state, loading: true })
-    .tap(log.ns("Projector Pre Combine:"))
-  //.concat(data)
-    .tap(log.ns("Projector Post Combine:"))
+    .concat(data)
+    .tap(log.ns("Projector:"))
 }
 
 export { init }

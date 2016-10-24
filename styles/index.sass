@@ -7,7 +7,7 @@ $white: #FEFEFE
 $white-dirt: #F9F9F9
 $gray: #666666
 $gray-light: #f2f2f2
-$gray-red: #cc0000
+$velvet-red: #cc0000
 $black: #1e1e1e
 
 *
@@ -40,6 +40,7 @@ a
 
 footer
   +grid(14,1,hard)
+  +flex(row, wrap, center, center)
   padding: 1.5em
   margin-top: 2em
   text-align: center
@@ -48,8 +49,30 @@ footer
   color: $gray
   cursor: default
 
+  span, a
+    margin: 0 0.2em
+
   .solid-emoji
-    +emoji($gray, $gray-red)
+    padding-top: 0.2em
+    +emoji($gray)
+
+  &:hover
+    .solid-emoji
+      +emoji($velvet-red)
+
+@keyframes fadein
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+=fade-in($time: 0.2s, $easing: ease)
+  animation: fadein $time $easing
+
+.content
+  color: $black
+  background-color: $white
+  +fade-in
 
 .repository
   +grid(14)
@@ -84,7 +107,23 @@ footer
   margin: 0.2em
   font-size: 0.9em
 
+@keyframes flash
+  from, 50%, to
+    opacity: 1
+  25%, 75%
+    opacity: 0
+
 .loading
   +grid(14)
   +flex(row, nowrap, center, center)
   +center(both)
+
+  font-size: 4em
+
+  .solid-emoji
+    +emoji($gray)
+
+    animation: flash 2s ease infinite
+
+    &:hover
+      +emoji($white)

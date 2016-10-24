@@ -66,8 +66,8 @@ const Footer = () => (
   </footer>
 )
 
-const Body = ({repos}) => (
-  <section>
+const Content = ({repos}) => (
+  <section className="content">
     <Nav />
       { repos }
     <Footer />
@@ -76,7 +76,7 @@ const Body = ({repos}) => (
 
 const Loading = () => (
   <section className="loading">
-    <span>Loading...</span>
+    <span className="solid-emoji">{emojify(":film_projector:")}</span>
   </section>
 )
 
@@ -86,7 +86,7 @@ export default ({loading, repositories}: State): void => {
   try {
     ReactDOM.render((
       <section>
-        { !loading && <Body repos={repos} /> || <Loading /> }
+        { !loading && <Content repos={repos} /> || <Loading /> }
       </section>
     ), document.getElementById('projector'))
   } catch (e) {
