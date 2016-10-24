@@ -5,10 +5,9 @@ $text-font:  'Source Sans Pro'
 
 $white: #FEFEFE
 $white-dirt: #F9F9F9
-$green: #3DB74A
-$green-light: #52d360
-$gray: #9A9A9A
-$gray-light: #DCDCDC
+$gray: #666666
+$gray-light: #f2f2f2
+$gray-red: #cc0000
 $black-mud: #1e1e1e
 $black: #121212
 
@@ -33,12 +32,36 @@ header
   align-items: center
 
   nav
-    +grid(12)
+    +grid(13)
+
+=emoji($color, $hover: $color)
+  cursor: default
+  color: transparent
+  text-shadow: 0 0 0 $color
+  transition: text-shadow 0.2s linear 0s
+  &:hover
+    text-shadow: 0 0 0 $hover
+
+.brand
+  font-size: 1.4em
+  color: transparent
+  text-shadow: 0 0 0 $white
+
+a
+  text-decoration: none
 
 footer
   +grid(14,1,hard)
-  text-align: center
   padding: 1.5em
+  margin-top: 2em
+  text-align: center
+  text-transform: lowercase
+  background-color: $gray-light
+  color: $gray
+  cursor: default
+
+  .solid-emoji
+    +emoji($gray, $gray-red)
 
 .repository
   +grid(14)
@@ -63,6 +86,8 @@ footer
   border: 1px solid $gray-light
   padding: 0.4em
   margin: 0.25em 0
+
+  cursor: pointer
 
   &:hover
     background-color: $white-dirt

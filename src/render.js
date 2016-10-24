@@ -55,14 +55,14 @@ const RepositoryComponent = (repo: Repository) => (
 const Nav = () => (
   <header>
     <nav>
-      Projector
+      <a href="" className="brand">{emojify(":film_projector:")}</a>
     </nav>
   </header>
 )
 
 const Footer = () => (
   <footer>
-    Made with {emojify(":heart:")} by <a href="https://github.com/ostera">@ostera</a>
+    Made with <span className="solid-emoji">{emojify(":heart:")}</span> by <a href="https://github.com/ostera">@ostera</a>
   </footer>
 )
 
