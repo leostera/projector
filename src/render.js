@@ -15,6 +15,8 @@ import emojify from 'projector/lib/gemoji'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { Markdown } from 'projector/components/Markdown'
+
 const LabelStyles = (label: Label) => ({
   backgroundColor: `#${label.color}`
 })
@@ -26,10 +28,12 @@ const LabelComponent = (label: Label) => (
   </section>
 )
 
-const IssueComponent = (issue: Issue) => (
-  <section key={issue.id} id={issue.id} className="issue">
-    {issue.title}
-    { issue.labels.map(LabelComponent) }
+const IssueComponent = ({id,body,title,labels}: Issue) => (
+  <section key={id} id={id} className="issue">
+    <section className="issue-title">
+      {title} { labels.map(LabelComponent) }
+    </section>
+    { body && body.length > 0 && <Markdown className="issue-body" body={body} /> }
   </section>
 )
 
