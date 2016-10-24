@@ -8,8 +8,7 @@ $white-dirt: #F9F9F9
 $gray: #666666
 $gray-light: #f2f2f2
 $gray-red: #cc0000
-$black-mud: #1e1e1e
-$black: #121212
+$black: #1e1e1e
 
 *
   box-sizing: border-box
@@ -18,13 +17,14 @@ $black: #121212
 body
   +reset
   font-size: 1em
-  color: $black
+  background-color: $black
+  color: $white
 
 header
   +grid(14)
   +flex(row, wrap, center, center)
   height: 44px //sometimes grid is not enough
-  background-color: $black-mud
+  background-color: $black
   color: $white
 
   nav
@@ -57,8 +57,8 @@ footer
 
 .header
   text-align: right
-  +offset(1)
-  +grid(2)
+  +offset(0.5)
+  +grid(2.5)
 
 .milestone
   +grid(5)
@@ -83,3 +83,8 @@ footer
   display: inline-block
   margin: 0.2em
   font-size: 0.9em
+
+.loading
+  +grid(14)
+  +flex(row, nowrap, center, center)
+  +center(both)

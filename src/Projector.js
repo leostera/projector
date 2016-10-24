@@ -2,6 +2,8 @@
 
 import Baobab from 'baobab'
 
+import { just } from 'most'
+
 import { log, error, pluck } from 'projector/utils'
 
 import type { State, Meta } from 'projector/Types'
@@ -89,9 +91,18 @@ const projects = (last) => Github.query(`
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
 
 const init = (state: State, location: Location): State => {
-  return projects(30)
-    .map( data => ({...state, repositories: new Baobab(data) }) )
-    .tap(log.ns("Projector:"))
+  let data = projects(30)
+    .map( data => (new Baobab(data)) )
+    .map( data => ({
+      ...state,
+      loading: !!!data,
+      repositories: data
+    }))
+
+  return just({ ...state, loading: true })
+    .tap(log.ns("Projector Pre Combine:"))
+  //.concat(data)
+    .tap(log.ns("Projector Post Combine:"))
 }
 
 export { init }

@@ -66,14 +66,27 @@ const Footer = () => (
   </footer>
 )
 
-export default ({repositories}: State): void => {
+const Body = ({repos}) => (
+  <section>
+    <Nav />
+      { repos }
+    <Footer />
+  </section>
+)
+
+const Loading = () => (
+  <section className="loading">
+    <span>Loading...</span>
+  </section>
+)
+
+export default ({loading, repositories}: State): void => {
+  log(loading)
   const repos = repositories && repositories.get().map( RepositoryComponent )
   try {
     ReactDOM.render((
       <section>
-         <Nav />
-         { repos }
-         <Footer />
+        { !loading && <Body repos={repos} /> || <Loading /> }
       </section>
     ), document.getElementById('projector'))
   } catch (e) {
