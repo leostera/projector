@@ -494,8 +494,8 @@ node_modules/minimist
 node_modules/mkdirp
 node_modules/module-deps
 node_modules/mold-source-map
-node_modules/most/dist
 node_modules/most/lib
+node_modules/most/dist
 node_modules/ms
 node_modules/multipipe
 node_modules/mute-stream
