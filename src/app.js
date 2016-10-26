@@ -31,6 +31,7 @@ const sameLocation = (a: Location, b: Location): boolean => (
     && a.action === b.action
     && a.search === b.search
 )
+
 const initialState = {
   _meta,
   location
