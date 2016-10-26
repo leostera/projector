@@ -2,6 +2,7 @@
 .PHONY: flow-stop check check-coverage test lint
 .PHONY: assets styles source build package
 .PHONY: server clean
+.PHONY: tags
 
 DIST_DIR  =./dist
 BUILD_DIR =./build
@@ -10,7 +11,7 @@ SCRIPT_DIR=./scripts
 
 DIR=.
 
-BRANCH  ?=$(shell git rev-parse --abbrev-ref HEAD)
+BRANCH ?=$(shell git rev-parse --abbrev-ref HEAD)
 VERSION =$(shell git describe --tags HEAD)
 REVISION=$(shell git rev-parse HEAD)
 STAMP   =$(REVISION).$(shell date +%s)
@@ -84,8 +85,11 @@ package: clean build
 server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
+tags:
+	ctags .
+
 clean:
-	rm -rf $(BUILD_DIR) $(DIST_DIR)
+	rm -rf $(BUILD_DIR) $(DIST_DIR) tags
 
 cleanall: clean
 	rm -rf node_modules
