@@ -8,3 +8,4 @@ src/metadata.js
 .build.sh
 .travis_build
 .bin
+tags*
