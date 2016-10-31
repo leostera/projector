@@ -38,7 +38,7 @@ const IssueComponent = ({ repository, title, id, labels, number }: Issue) => (
 
 const MilestoneComponent = (milestone: Milestone) => (
   <section key={milestone.id} id={milestone.id} className="milestone">
-    <h3> {milestone.title} </h3>
+    <h3> <a href={milestone.url}> {milestone.title} </a> </h3>
     <section className="issues">
       { milestone.issues.map(IssueComponent) }
     </section>

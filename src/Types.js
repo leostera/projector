@@ -34,6 +34,7 @@ export type Milestone = {
   title: Name;
   description: Description;
   issues: Issue[];
+  url: URL;
 }
 
 export type IssueState = "OPEN" | "CLOSED";

@@ -57,6 +57,7 @@ const projects = (last) => Github.query(`
             edges {
               node {
                 id
+                url
                 state
                 title
                 description
