@@ -59,6 +59,7 @@ export type Repository = {
   url: URL;
 }
 
+// Baobab type? Where is it? WHERE IS IT?!
 export type BaobabTree<T> = {
   get(): T[];
 };
