@@ -39,11 +39,14 @@ const uncache = (a: string): any => {
   return val && JSON.parse(val)
 }
 
+const a = (b: string): Symbol => Symbol.for(b)
+
 export {
-  log,
-  error,
-  pluck,
-  info,
+  a,
   cache,
+  error,
+  info,
+  log,
+  pluck,
   uncache,
 }

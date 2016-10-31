@@ -68,6 +68,7 @@ export type Repositories = BaobabTree<Repository>;
 
 export type State = {
   _meta: Meta;
+  history: History;
   location: Location;
   repositories?: Repositories;
   loading?: boolean;

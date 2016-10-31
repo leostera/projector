@@ -1,5 +1,7 @@
 //@flow
 
+import a from 'projector/utils'
+
 import { log, error } from 'projector/utils'
 
 import type {
@@ -58,12 +60,22 @@ const RepositoryComponent = (repo: Repository) => (
 const Nav = ({_meta}) => (
   <header>
     <nav>
-      <a href="" className="brand">{emojify(":film_projector:")}</a>
-      <span className="version">
-        <a href={`https://github.com/ostera/projector/tree/${_meta.Revision}`}>
-          v{_meta.Version}
+      <section className="brand">
+        <a href="" className="brand">{emojify(":film_projector:")}</a>
+        <span className="version">
+          <a
+            href={`https://github.com/ostera/projector/tree/${_meta.Revision}`}>
+            v{_meta.Version}
+          </a>
+        </span>
+      </section>
+
+      <section className="tools">
+        <a onClick={push(a('update'))}>
+          sync
         </a>
-      </span>
+      </section>
+
     </nav>
   </header>
 )
