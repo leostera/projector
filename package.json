@@ -42,6 +42,7 @@
     "reactify": "^1.1.1",
     "regenerator": "^0.8.46",
     "static-server": "^2.0.3",
+    "sweet.js": "^2.2.1",
     "uglify-js": "^2.6.4",
     "whatwg-fetch": "^1.0.0"
   },
