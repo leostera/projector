@@ -95,10 +95,14 @@ const projects = (last) => Github.query(`
   }) )
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
 
+const cache = (a: string) => (b: any) => {
+  localStorage.setItem(a, JSON.stringify(b))
+}
+const uncache = (a: string): any => {
+  return JSON.parse(localStorage.getItem(a))
+}
+
 const init = (state: State, location: Location): State => {
-  const cache = (a: State) => {
-    localStorage.setItem('state', JSON.stringify(a))
-  }
 
   let data = projects(30)
     .map( data => (new Baobab(data)) )
@@ -107,9 +111,9 @@ const init = (state: State, location: Location): State => {
       loading: !!!data,
       repositories: data
     }))
-    .tap(cache)
+    .tap(cache('state'))
 
-  let cached_data = just(JSON.parse(localStorage.getItem('state')))
+  let cached_data = just(uncache("state"))
     .filter( x => x !== null && x !== undefined )
     .map( (a: State) => {
       a.repositories = new Baobab(a.repositories)
