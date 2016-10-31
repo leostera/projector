@@ -4,7 +4,13 @@ import Baobab from 'baobab'
 
 import { just, mergeArray } from 'most'
 
-import { log, error, pluck } from 'projector/utils'
+import {
+  log,
+  error,
+  pluck,
+  cache,
+  uncache,
+} from 'projector/utils'
 
 import type { State, Meta } from 'projector/Types'
 import _meta from 'projector/metadata'
@@ -94,13 +100,6 @@ const projects = (last) => Github.query(`
     return n
   }) )
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
-
-const cache = (a: string) => (b: any) => {
-  localStorage.setItem(a, JSON.stringify(b))
-}
-const uncache = (a: string): any => {
-  return JSON.parse(localStorage.getItem(a))
-}
 
 const init = (state: State, location: Location): State => {
 

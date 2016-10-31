@@ -30,9 +30,20 @@ const pluck = (key: string): Function => {
   }
 }
 
+const cache = (a: string): Function => (b: {}) => {
+  localStorage.setItem(a, JSON.stringify(b))
+}
+
+const uncache = (a: string): any => {
+  let val = localStorage.getItem(a)
+  return val && JSON.parse(val)
+}
+
 export {
   log,
   error,
   pluck,
   info,
+  cache,
+  uncache,
 }
