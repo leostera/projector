@@ -2,7 +2,7 @@
 
 import Baobab from 'baobab'
 
-import { just, mergeArray } from 'most'
+import { just } from 'most'
 
 import {
   log,
