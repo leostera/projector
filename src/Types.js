@@ -17,6 +17,7 @@ export type Meta = {
   Tokens: Tokens;
 }
 
+export type URL = string
 export type Id = string
 export type Name = string
 export type Color = string
@@ -43,8 +44,9 @@ export type Issue = {
   number: number;
   description: Description;
   milestone?: Milestone;
-  labels?: Label[];
+  labels: Label[];
   state: IssueState;
+  repository: Repository;
 }
 
 export type Repository = {
@@ -53,6 +55,7 @@ export type Repository = {
   description: Description;
   milestones: Milestone[];
   issues: Issue[];
+  url: URL;
 }
 
 export type BaobabTree<T> = {
@@ -65,4 +68,5 @@ export type State = {
   _meta: Meta;
   location: Location;
   repositories?: Repositories;
+  loading?: boolean;
 }

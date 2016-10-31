@@ -7,6 +7,9 @@ import { just, fromPromise } from 'most'
 
 import 'whatwg-fetch'
 
+// flowtype hack so fetch doesn't appear here
+const fetch: Function = fetch
+
 import type { Query } from 'projector/Types'
 import _meta from 'projector/metadata'
 
