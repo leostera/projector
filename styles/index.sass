@@ -31,6 +31,13 @@ header
 
   nav
     +grid(13)
+    +flex(row, nowrap, space-between, center)
+
+    section.brand
+      +grid(1)
+
+    section.tools
+      +grid(3)
 
 .version
   font-size: 0.7em
@@ -38,7 +45,7 @@ header
   a
     color: $white
 
-.brand
+a.brand
   font-size: 1.4em
   color: transparent
   text-shadow: 0 0 0 $white
