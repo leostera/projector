@@ -4,7 +4,13 @@ import Baobab from 'baobab'
 
 import { just } from 'most'
 
-import { log, error, pluck } from 'projector/utils'
+import {
+  log,
+  error,
+  pluck,
+  cache,
+  uncache,
+} from 'projector/utils'
 
 import type { State, Meta } from 'projector/Types'
 import _meta from 'projector/metadata'
@@ -96,6 +102,7 @@ const projects = (last) => Github.query(`
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
 
 const init = (state: State, location: Location): State => {
+
   let data = projects(30)
     .map( data => (new Baobab(data)) )
     .map( data => ({
@@ -103,8 +110,17 @@ const init = (state: State, location: Location): State => {
       loading: !!!data,
       repositories: data
     }))
+    .tap(cache('state'))
+
+  let cached_data = just(uncache("state"))
+    .filter( x => x !== null && x !== undefined )
+    .map( (a: State) => {
+      a.repositories = new Baobab(a.repositories)
+      return a
+    })
 
   return just({ ...state, loading: true })
+    .concat(cached_data)
     .concat(data)
     .tap(log.ns("Projector:"))
 }
