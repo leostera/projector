@@ -2,7 +2,7 @@
 
 import Baobab from 'baobab'
 
-import { just } from 'most'
+import { just, mergeArray } from 'most'
 
 import { log, error, pluck } from 'projector/utils'
 
@@ -109,11 +109,15 @@ const init = (state: State, location: Location): State => {
     }))
     .tap(cache)
 
-  let cached_data = JSON.parse(localStorage.getItem('state'))
-
-  console.log(cached_data)
+  let cached_data = just(JSON.parse(localStorage.getItem('state')))
+    .filter( x => x !== null && x !== undefined )
+    .map( (a: State) => {
+      a.repositories = new Baobab(a.repositories)
+      return a
+    })
 
   return just({ ...state, loading: true })
+    .concat(cached_data)
     .concat(data)
     .tap(log.ns("Projector:"))
 }
