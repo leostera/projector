@@ -86,7 +86,7 @@ server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
 tags:
-	rm tags
+	rm -f tags
 	ctags .
 
 clean:
