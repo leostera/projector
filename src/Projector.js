@@ -109,7 +109,7 @@ const init = (state: State, location: Location): State => {
     }))
     .tap(cache)
 
-  let cached_data = JSON.pasre(localStorage.getItem('state'))
+  let cached_data = JSON.parse(localStorage.getItem('state'))
 
   console.log(cached_data)
 
