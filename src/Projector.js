@@ -2,6 +2,7 @@
 
 import Baobab from 'baobab'
 
+import type { Stream } from 'most'
 import { just } from 'most'
 
 import {
@@ -12,7 +13,7 @@ import {
   uncache,
 } from 'projector/utils'
 
-import type { State, Meta } from 'projector/Types'
+import type { State, Meta, Repositories } from 'projector/Types'
 import _meta from 'projector/metadata'
 
 import * as Github from 'projector/Github'
@@ -101,24 +102,24 @@ const projects = (last) => Github.query(`
   }) )
   .map( res => (res.filter( p => p.milestones.length > 0 )) )
 
-const init = (state: State, location: Location): State => {
+const init = (a: State, b: State): Stream => {
+
+  // Alias the newest State to scan
+  let state = b ? b : a
+
+  const to_state = (a: Repositories): State => ({
+      ...state,
+      loading: !!!a,
+      repositories: new Baobab(a)
+    })
 
   let data = projects(30)
-    .map( data => (new Baobab(data)) )
-    .map( data => ({
-      ...state,
-      loading: !!!data,
-      repositories: data
-    }))
+    .map(to_state)
     .tap(cache('state'))
 
   let cached_data = just(uncache("state"))
     .filter( x => x !== null && x !== undefined )
-    .map( (a: State): State => ({
-      ...state,
-      loading: !!!a.repositories,
-      repositories: new Baobab(a.repositories)
-    }) )
+    .map( (a: State): State => to_state(a.repositories) )
 
   return just({ ...state, loading: true })
     .concat(cached_data)

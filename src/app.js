@@ -3,7 +3,7 @@
 import 'babel-polyfill'
 import { log, error } from 'projector/utils'
 
-import { from } from 'most'
+import { from, just } from 'most'
 
 import createHistoryStream from 'projector/lib/history.stream'
 import type { History, Location } from 'history'
@@ -33,12 +33,15 @@ const sameLocation = (a: Location, b: Location): boolean => (
 )
 
 const initialState: State = {
-  _meta,
+  loading: true,
   location,
+  _meta,
   history: __history
 }
 
 let glue = from(history)
-  .scan(Projector.init, Projector.init(initialState, location))
+  .map( location => ({ ...initialState, location }) )
+  .tap(log.ns("History"))
+  .scan(Projector.init, Projector.init(initialState))
   .join()
   .observe(render)
