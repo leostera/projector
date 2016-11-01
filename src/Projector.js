@@ -114,10 +114,11 @@ const init = (state: State, location: Location): State => {
 
   let cached_data = just(uncache("state"))
     .filter( x => x !== null && x !== undefined )
-    .map( (a: State) => {
-      a.repositories = new Baobab(a.repositories)
-      return a
-    })
+    .map( (a: State): State => ({
+      ...state,
+      loading: !!!a.repositories,
+      repositories: new Baobab(a.repositories)
+    }) )
 
   return just({ ...state, loading: true })
     .concat(cached_data)

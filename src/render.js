@@ -57,7 +57,7 @@ const RepositoryComponent = (repo: Repository) => (
   </section>
 )
 
-const Nav = ({_meta}) => (
+const Nav = ({_meta, push}) => (
   <header>
     <nav>
       <section className="brand">
@@ -71,7 +71,7 @@ const Nav = ({_meta}) => (
       </section>
 
       <section className="tools">
-        <a onClick={push(a('update'))}>
+        <a onClick={push('/sync')}>
           sync
         </a>
       </section>
@@ -86,9 +86,9 @@ const Footer = () => (
   </footer>
 )
 
-const Content = ({_meta, repos}) => (
+const Content = ({_meta, push, repos}) => (
   <section className="content">
-    <Nav _meta={_meta} />
+    <Nav _meta={_meta} push={push} />
       { repos }
     <Footer />
   </section>
@@ -100,12 +100,15 @@ const Loading = () => (
   </section>
 )
 
-export default ({_meta, loading, repositories}: State): void => {
+export default ({_meta, history, loading, repositories}: State): void => {
+  const push =  (a: string) => () => history.push(a)
   const repos = repositories && repositories.get().map( RepositoryComponent )
   try {
     ReactDOM.render((
       <section>
-        { !loading && <Content _meta={_meta} repos={repos} /> || <Loading /> }
+        { !loading
+          && <Content _meta={_meta} push={push} repos={repos} />
+          || <Loading /> }
       </section>
     ), document.getElementById('projector'))
   } catch (e) {

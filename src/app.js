@@ -32,9 +32,10 @@ const sameLocation = (a: Location, b: Location): boolean => (
     && a.search === b.search
 )
 
-const initialState = {
+const initialState: State = {
   _meta,
-  location
+  location,
+  history: __history
 }
 
 let glue = from(history)
