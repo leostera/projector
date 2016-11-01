@@ -39,10 +39,14 @@ const uncache = (a: string): any => {
   return val && JSON.parse(val)
 }
 
-const a = (b: string): Symbol => Symbol.for(b)
+const atom = (...args: Array<string>): Symbol => {
+  let keys = args.map(Symbol.for)
+  return keys.length === 1 ? keys[0] : keys
+}
+window.atom = atom
 
 export {
-  a,
+  atom,
   cache,
   error,
   info,

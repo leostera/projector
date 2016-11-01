@@ -1,6 +1,6 @@
 //@flow
 
-import a from 'projector/utils'
+import { atom as a } from 'projector/utils'
 
 import { log, error } from 'projector/utils'
 
