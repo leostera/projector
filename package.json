@@ -11,7 +11,7 @@
   },
   "homepage": "https://projector.ostera.io",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "src/app.js",
   "devDependencies": {
     "babel-core": "^6.18.2",
