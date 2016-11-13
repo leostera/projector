@@ -89,7 +89,9 @@ const Footer = () => (
 const Content = ({_meta, push, repos}) => (
   <section className="content">
     <Nav _meta={_meta} push={push} />
+    <section className="repositories">
       { repos }
+    </section>
     <Footer />
   </section>
 )

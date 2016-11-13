@@ -15,6 +15,7 @@ $white: #FEFEFE
 *
   box-sizing: border-box
   font-family: $text-font, 'Helvetica Neue', sans-serif
+  font-weight: 200
 
 body
   +reset
@@ -90,8 +91,12 @@ footer
   background-color: $white
   +fade-in
 
+.repositories
+  +offset(1)
+  font-size: 0.9em
+
 .repository
-  +grid(14)
+  +grid(12)
   +flex(row, wrap, flex-start, baseline)
 
   a:visited
@@ -104,7 +109,7 @@ footer
   +grid(2.5)
 
 .milestone
-  +grid(5)
+  +grid(3.5)
   padding: 0 1em
   h3
     text-align: right
