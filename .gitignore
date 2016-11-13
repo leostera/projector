@@ -1,11 +1,17 @@
+.cache
+coverage
 node_modules
+lib
 build
 dist
-TODO
 src/metadata.js
 
-*.sw*
 .build.sh
 .travis_build
 .bin
+
+*.sw*
 tags*
+.ctagsignore
+*-error.log
+*-debug.log

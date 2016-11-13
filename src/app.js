@@ -7,7 +7,7 @@ import { from, just } from 'most'
 
 import createHistoryStream from 'projector/lib/history.stream'
 import type { History, Location } from 'history'
-import createHistory from 'history/lib/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory'
 
 import _meta from 'projector/metadata'
 import * as Projector from 'projector/Projector'
@@ -18,7 +18,7 @@ import render from 'projector/render'
  *******************************************************************************/
 
 let __history: History = createHistory()
-let location: Location = __history.getCurrentLocation()
+let location: Location = __history.location
 let history = createHistoryStream(__history)
 
 /*******************************************************************************

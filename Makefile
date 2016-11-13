@@ -1,26 +1,34 @@
 .PHONY: all
-.PHONY: flow-stop check check-coverage test lint
-.PHONY: assets styles source build package
-.PHONY: server clean
-.PHONY: tags
+.PHONY: bench test lint styles build check package
+.PHONY: server clean tags
 
-DIST_DIR  =./dist
-BUILD_DIR =./build
-BIN_DIR   =./node_modules/.bin
-SCRIPT_DIR=./scripts
+LIB_NAME     = projector
 
-DIR=.
+ASSETS_DIR   = assets
+BIN_DIR      = ./node_modules/.bin
+BUILD_DIR    = build
+CACHE_DIR    = .cache
+COVERAGE_DIR = coverage
+DIST_DIR     = dist
+PERF_DIR     = tests/perf
+SCRIPT_DIR   = scripts
+TEST_DIR     = tests
 
-BRANCH ?=$(shell git rev-parse --abbrev-ref HEAD)
-VERSION =$(shell git describe --tags HEAD)
-REVISION=$(shell git rev-parse HEAD)
-STAMP   =$(REVISION).$(shell date +%s)
+PERF_TESTS = $(shell find $(PERF_DIR) -name "*.perf.js")
 
-all: setup check lint test package
+DIR = .
 
-ci: all
+BRANCH   ?= $(shell git rev-parse --abbrev-ref HEAD)
+VERSION   = $(shell git describe --tags HEAD)
+REVISION  = $(shell git rev-parse HEAD)
+STAMP     = $(REVISION).$(shell date +%s)
 
-setup:
+all: setup build lint check test bench
+
+dirs:
+	mkdir -p $(DIST_DIR) $(BUILD_DIR) $(COVERAGE_DIR) $(CACHE_DIR) $(ASSETS_DIR)
+
+setup: dirs
 	$(SCRIPT_DIR)/symlink.sh
 
 flow-stop:
@@ -28,23 +36,18 @@ flow-stop:
 
 check:
 	$(BIN_DIR)/flow
-
-check-coverage:
 	$(SCRIPT_DIR)/check-coverage.sh
 
 test:
-	$(BIN_DIR)/jest
+	NODE_ENV=test $(BIN_DIR)/jest -c .jestrc
 
 lint:
 	$(BIN_DIR)/eslint ./src
 
 build: dirs assets styles source
 
-dirs:
-	mkdir -p $(BUILD_DIR) $(DIST_DIR)
-
 assets:
-	cp -r ./assets $(BUILD_DIR)
+	cp -r $(ASSETS_DIR) $(BUILD_DIR)
 
 styles:
 	$(BIN_DIR)/node-sass \
@@ -64,33 +67,41 @@ constants:
 		envsubst < src/_metadata.js > src/metadata.js
 
 source: constants
-	$(BIN_DIR)/browserify \
+	touch $(CACHE_DIR)/browserify-cache.json
+	mv $(CACHE_DIR)/browserify-cache.json browserify-cache.json
+	$(BIN_DIR)/browserifyinc \
 		src/app.js \
 		--debug \
 		-t babelify \
-		| $(BIN_DIR)/exorcist $(BUILD_DIR)/bundle.js.map \
-		> $(BUILD_DIR)/_bundle.js
-	mv $(BUILD_DIR)/_bundle.js $(BUILD_DIR)/bundle.js
+		| $(BIN_DIR)/exorcist $(BUILD_DIR)/$(LIB_NAME).js.map \
+		> $(BUILD_DIR)/_$(LIB_NAME).js
+	mv $(BUILD_DIR)/_$(LIB_NAME).js $(BUILD_DIR)/$(LIB_NAME).js
+	mv browserify-cache.json $(CACHE_DIR)/browserify-cache.json
 
 package: clean build
 	cp -r index.html $(BUILD_DIR) $(DIST_DIR)
-	sed -i 's build/bundle build/$(STAMP) g' $(DIST_DIR)/index.html
+	sed -i 's build/$(LIB_NAME) build/$(STAMP) g' $(DIST_DIR)/index.html
 	sed -i 's build/index build/$(STAMP) g'  $(DIST_DIR)/index.html
 	mv $(DIST_DIR)/$(BUILD_DIR)/index.css $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css
-	$(BIN_DIR)/uglifyjs $(DIST_DIR)/$(BUILD_DIR)/bundle.js > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js
-	rm $(DIST_DIR)/$(BUILD_DIR)/bundle.js
+	$(BIN_DIR)/uglifyjs $(DIST_DIR)/$(BUILD_DIR)/$(LIB_NAME).js > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js
+	rm $(DIST_DIR)/$(BUILD_DIR)/$(LIB_NAME).js
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).css.gz
 	gzip -c -9 $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js  > $(DIST_DIR)/$(BUILD_DIR)/$(STAMP).js.gz
 
 server:
 	$(BIN_DIR)/static-server -n $(DIR)/index.html -f $(DIR)
 
-tags:
+tags: .ctagsignore
 	rm -f tags
-	ctags .
+	ctags src
+
+.ctagsignore: node_modules
+	ls -fd1 node_modules/* > $@
 
 clean:
-	rm -rf $(BUILD_DIR) $(DIST_DIR) tags
+	rm -rf $(BUILD_DIR) $(DIST_DIR) $(CACHE_DIR) tags
 
 cleanall: clean
-	rm -rf node_modules
+	rm -rf node_modules yarn.lock $(COVERAGE_DIR)
+
+FORCE:

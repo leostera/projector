@@ -1,20 +1,18 @@
 language: node_js
 
 node_js:
-  - '5'
+  - '6'
 
 env:
   global:
     - NODE_ENV=CI
-    - AWS_CLOUDFRONT_DISTRIBUTION=
-    - MIXPANEL_TOKEN=
 
 cache:
   directories:
     - node_modules
 
-git:
-  depth: 100
+before_install:
+  - sudo apt-get install bc -y
 
 script:
   - make setup
@@ -23,20 +21,5 @@ script:
   - make test
   - NODE_ENV=production make package
 
-before_deploy:
-  - ./scripts/install-awscli.sh
-
-deploy:
-  provider: s3
-  bucket: projector.ostera.io
-  on:
-    node: '5'
-    repo: ostera/projector
-  skip_cleanup: true
-  local-dir: dist
-  acl: public_read
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  access_key_id: $AWS_ACCESS_KEY_ID
-
-after_deploy:
-  - ./scripts/invalidate-cdn-cache.sh
+after_success:
+  - ./node_modules/.bin/codecov
