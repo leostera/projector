@@ -1,6 +1,14 @@
 #!/bin/bash -e
 
-readonly FILES=$(find src -name "*.js" | sort)
+readonly FILES=$(
+  find src \
+    -name "*.js" \
+    -not -name "*index.js" \
+    -not -name "*.test.js" \
+    -not -name "*.perf.js" \
+  | sort
+)
+
 readonly FILE_COUNT=$(echo "${FILES}" | sed 's/ /\n/g' | wc -l)
 
 echo ${FILE_COUNT}
@@ -13,4 +21,4 @@ for file in ${FILES}; do
 done
 
 readonly TOTAL="$( echo "${TOTAL_PERCENTAGE}/${FILE_COUNT}.0" | bc)"
-echo "Total: ${TOTAL}%"
+echo "== Coverage: ${TOTAL}%"
