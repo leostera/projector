@@ -61,7 +61,7 @@
   "dependencies": {
     "baobab": "^2.3.4",
     "history": "^4.4.0",
-    "most": "^1.1.0",
+    "most": "^1.2.2",
     "node-sass": "^4.1.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
