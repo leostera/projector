@@ -15,7 +15,7 @@
   "main": "src/app.js",
   "devDependencies": {
     "babel-core": "^6.18.2",
-    "babel-eslint": "7.1.1",
+    "babel-eslint": "7.2.1",
     "babel-jest": "18.0.0",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
