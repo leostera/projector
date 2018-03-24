@@ -62,7 +62,7 @@
     "baobab": "^2.3.4",
     "history": "^4.4.0",
     "most": "^1.1.0",
-    "node-sass": "^4.1.0",
+    "node-sass": "^4.8.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "reactify": "^1.1.1",
